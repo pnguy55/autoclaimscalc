@@ -18,41 +18,57 @@ const App = ({
             <Form>
                 <label>
                     Medical Expenses:&nbsp;
-                    <Field type = 'number' name = 'medExp' placeholder = '$' />
+                    <Field className='dollar-field' type = 'number' name = 'medExp' placeholder = '0' />
                 </label>
                 <label>
                     Property Damage:&nbsp;
-                    <Field type = 'number' name = 'propDmg' placeholder = '$' />
+                    <Field className='dollar-field' type = 'number' name = 'propDmg' placeholder = '0' />
                 </label>
                 <label>
                     Lost Wages:&nbsp;
-                    <Field type = 'number' name = 'lostWages' placeholder = '$' />
+                    <Field className='dollar-field' type = 'number' name = 'lostWages' placeholder = '0' />
                 </label>
                 <label>
                     Lost Future Earnings:&nbsp;
-                    <Field type = 'number' name = 'lostFutureEarnings' placeholder = '$' />
+                    <Field className='dollar-field' type = 'number' name = 'lostFutureEarnings' placeholder = '0' />
                 </label>
                 <label>
                     Future Medical Expenses:&nbsp;
-                    <Field type = 'number' name = 'futureMedExp' placeholder = '$' />
+                    <Field className='dollar-field' type = 'number' name = 'futureMedExp' placeholder = '0' />
                 </label>
                 <label>
-                    Please enter your name:&nbsp;
-                    <Field type = 'name' name = 'name' placeholder = 'Name' />
+                    Future Medical Expenses:&nbsp;
+                    <Field className='dollar-field' type = 'number' name = 'futureMedExp' placeholder = '0' />
                 </label>
 
-                <label>
-                    Please enter your e-mail:&nbsp;
-                    <Field type = 'email' name = 'email' placeholder = 'Email' />
-                </label>
-                <label>
-                    <Field type = 'checkbox' name = 'acknowledged' checked = {values.acknowledged} />
-                    I understand that this number is only an estimate and not a guarantee of any sort.
-                </label>
-                <h3>You could be entitled to a settlement of ${values.thingie = 0+values.medExp+values.propDmg+values.lostWages+values.lostFutureEarnings+values.futureMedExp}!</h3>
-                <button>Get Results</button>
+                <div className='get-results-wrapper centered-spaced-column'>
+
+                    <label>
+                        Please enter your name:&nbsp;
+                        <Field className='name-field' type = 'name' name = 'name' placeholder = 'Name' />
+                    </label>
+
+                    <label>
+                        Please enter your e-mail:&nbsp;
+                        <Field className='email-field' type = 'email' name = 'email' placeholder = 'Email' />
+                    </label>
+                    <label>
+                        <Field type = 'checkbox' name = 'acknowledged' checked = {values.acknowledged} />
+                        I understand that this number is only an estimate and not a guarantee of any sort.
+                    </label>
+                    <button className='centered-column'>Get Results</button>
+                </div>
             </Form>
         </div>
+
+        <div className='results-window hide'>
+            <h3 className='results-words'>You could be entitled to a settlement of ${values.thingie = 0+values.medExp+values.propDmg+values.lostWages+values.lostFutureEarnings+values.futureMedExp}!</h3>
+            <a onClick={()=>{var popUp = document.querySelector('.results-window');
+                            popUp.classList.toggle('hide');
+                            popUp.classList.toggle('show');}}>
+                <h3 className='close-button'>- CLOSE -</h3>
+            </a>
+        </div>        
         <div className='progress-bar'>
         <h3>Progress Bar</h3>
             <ul>
@@ -89,6 +105,11 @@ const FormikApp = withFormik({
     handleSubmit(values) {
 
         values.total = values.name+values.email;
+
+        var popUp = document.querySelector('.results-window');
+        
+        popUp.classList.toggle('hide');
+        popUp.classList.toggle('show');
         //axios here
         console.log(JSON.stringify(values))
         axios({

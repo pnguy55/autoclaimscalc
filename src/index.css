@@ -6,7 +6,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-width: 320px;
+  height: fit-content;
+  padding-bottom: 2rem;
 }
+
+
 
 /*Variables*/
 :root{
@@ -35,13 +40,35 @@ body {
 @font-face {font-family: os-bold; src: url('./assets/fonts/open-sans/OpenSans-Bold.ttf');}
 @font-face{font-family: os-italic; src: url('./assets/fonts/open-sans/OpenSans-Italic.ttf');}
 
+
+#root{
+  height: 100%;
+}
+.centered-column{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.centered-spaced-column{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.hide{
+  display: none;
+}
+.show{
+  display: flex;
+}
 .wrapper{
   background: var(--background-color);
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vw;
-  padding-bottom: 5rem;
+  width: 100%;
+  height: 100%;
 }
 nav{
   width: 90%;
@@ -50,6 +77,8 @@ nav{
   display: flex;
   align-items: center;
   font-family: var(--header-bold);
+  font-size: 1.35rem;
+  text-transform: uppercase;
   background: var(--primary);
   color: var(--text-color);
 }
@@ -57,8 +86,8 @@ nav{
   background: var(--background-color);
   display: flex;
   justify-content: center;
-  width: 100vw;
-  height: fit-content;
+  width: 100%;
+  height: 100%;
 }
 
 Form{
@@ -67,6 +96,7 @@ Form{
   flex-direction: column;
   width: 80%;
   justify-content: center;
+  align-items: center;
   height: fit-content;
   font-family: var(--body-bold);
   background: var(--background-secondary);
@@ -76,12 +106,45 @@ Form{
 Form >* {
   margin: 1em;
 }
-
+.dollar-field {
+  background-image: url(./assets/svgs/usd-square.svg);
+  background-repeat: no-repeat;
+  background-position: 2px 0px;
+  text-indent: 1rem;
+  color: var(--primary);
+}
+.name-field{
+  background-image: url(./assets/svgs/user-circle.svg);
+  background-repeat: no-repeat;
+  background-position: 1px 0px;
+  text-indent: 1rem;
+}
+.email-field{
+  background-image: url(./assets/svgs/at.svg);
+  background-repeat: no-repeat;
+  background-position: 1px 0px;
+  text-indent: 1rem;
+}
 Form > h1 {
   max-width: 60%;
 }
-
-button{
+input{
+  border: 1px solid black;
+  padding: .25rem 2rem;
+  border-radius: 2px;
+  background: var(--background-secondary);
+}
+.get-results-wrapper{
+  margin-top: 2rem;
+  height: 25rem;
+  border-top: 2px solid var(--primary-dark);
+}
+.get-results-wrapper > h3{
+  padding: .5rem;
+  background: var(--secondary);
+  color: var(--text-color);
+}
+.get-results-wrapper > button{
   background: var(--secondary);
   border: none;
   padding: 1em;
@@ -94,7 +157,6 @@ button{
   bottom:0px;
   width: 100vw;
   height: 3rem;
-  padding-top: .1rem;
   background: var(--primary-dark);
 }
 .progress-bar > h3{
@@ -120,4 +182,63 @@ button{
 
 .filled-in{
   background: var(--primary-dark) !important;
+}
+
+.results-window{
+  position: fixed;
+  z-index: 99;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--primary-dark);
+  color: var(--text-color); 
+}
+.results-words{
+  display: flex;
+  width: 80%;
+  justify-content: center;
+}
+.close-button{
+  display: flex;
+  justify-content: center;
+  padding:.5rem;
+  background:var(--secondary);
+  color:white;
+  width: 8rem;
+}
+@media only screen and (min-width: 768px){
+  body{
+    height: 100vh;
+  }
+  .form-wrapper{
+    padding-bottom: 2rem;
+  }
+  Form{
+    display: grid;
+    font-size: 1.25rem;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 8rem 8rem 8rem 25rem;
+  }
+  Form > label{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .dollar-field {
+    text-indent: 2rem;
+  }
+  .name-field{
+    text-indent: 2rem;
+  }
+  .email-field{
+    text-indent: 2rem;
+  }
+  input{
+    padding: .35rem;
+  }
+  .get-results-wrapper{
+    grid-column: span 2;
+  }
 }

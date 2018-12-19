@@ -63,7 +63,7 @@ body {
   display: flex;
 }
 .wrapper{
-  background: var(--background-color);
+  background-image: url(./assets/car-accident.jpg);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -83,7 +83,6 @@ nav{
   color: var(--text-color);
 }
 .form-wrapper{
-  background: var(--background-color);
   display: flex;
   justify-content: center;
   width: 100%;

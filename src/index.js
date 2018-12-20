@@ -17,43 +17,43 @@ const App = ({
         <div className = 'form-wrapper'>
             <Form>
                 <label>
-                    Medical Expenses:&nbsp;
+                    Medical Expenses:<div></div>
                     <Field className='dollar-field' type = 'number' name = 'medExp' placeholder = '0' />
                 </label>
                 <label>
-                    Property Damage:&nbsp;
+                    Property Damage:<div></div>
                     <Field className='dollar-field' type = 'number' name = 'propDmg' placeholder = '0' />
                 </label>
                 <label>
-                    Lost Wages:&nbsp;
+                    Lost Wages:<div></div>
                     <Field className='dollar-field' type = 'number' name = 'lostWages' placeholder = '0' />
                 </label>
                 <label>
-                    Lost Future Earnings:&nbsp;
+                    Lost Future Earnings:<div></div>
                     <Field className='dollar-field' type = 'number' name = 'lostFutureEarnings' placeholder = '0' />
                 </label>
                 <label>
-                    Future Medical Expenses:&nbsp;
+                    Future Medical Expenses:<div></div>
                     <Field className='dollar-field' type = 'number' name = 'futureMedExp' placeholder = '0' />
                 </label>
                 <label>
-                    Future Medical Expenses:&nbsp;
+                    Future Medical Expenses:<div></div>
                     <Field className='dollar-field' type = 'number' name = 'futureMedExp' placeholder = '0' />
                 </label>
 
                 <div className='get-results-wrapper centered-spaced-column'>
 
                     <label>
-                        Please enter your name:&nbsp;
+                        Please enter your name:<div></div>
                         <Field className='name-field' type = 'name' name = 'name' placeholder = 'Name' />
                     </label>
 
                     <label>
-                        Please enter your e-mail:&nbsp;
+                        Please enter your e-mail:<div></div>
                         <Field className='email-field' type = 'email' name = 'email' placeholder = 'Email' />
                     </label>
                     <label>
-                        <Field type = 'checkbox' name = 'acknowledged' checked = {values.acknowledged} />
+                        <Field className='acknowledgementBox' type = 'checkbox' name = 'acknowledged' checked = {values.acknowledged} />
                         I understand that this number is only an estimate and not a guarantee of any sort.
                     </label>
                     <button className='centered-column'>Get Results</button>

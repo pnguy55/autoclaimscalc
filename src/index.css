@@ -94,7 +94,7 @@ Form{
   display: flex;
   flex-direction: column;
   width: 80%;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
   height: fit-content;
   font-family: var(--body-bold);
@@ -132,6 +132,12 @@ input{
   padding: .25rem 2rem;
   border-radius: 2px;
   background: var(--background-secondary);
+  width: 70%;
+  min-width: 20em;
+}
+.acknowledgementBox{
+  width: 1em !important;
+  min-width: 1em !important;
 }
 .get-results-wrapper{
   margin-top: 2rem;
@@ -219,6 +225,7 @@ input{
     font-size: 1.25rem;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 8rem 8rem 8rem 25rem;
+    width: 65%;
   }
   Form > label{
     display: flex;

@@ -127,13 +127,71 @@ Form >* {
 Form > h1 {
   max-width: 60%;
 }
+label{
+  max-width: 80%;
+}
 input{
   border: 1px solid black;
   padding: .25rem 2rem;
   border-radius: 2px;
   background: var(--background-secondary);
   width: 70%;
-  min-width: 20em;
+  min-width: 4rem;
+}
+.tooltip-1{
+  display: none;
+  position: absolute;
+  padding: 1em;
+  max-width: 12rem;
+  background: var(--background-color);
+}
+.more-info1:hover +.tooltip-1{
+  display: flex;
+  transition: 2s;
+}
+.tooltip-2{
+  display: none;
+  position: absolute;
+  padding: 1em;
+  max-width: 12rem;
+  background: var(--background-color);
+}
+.more-info2:hover +.tooltip-2{
+  display: flex;
+  transition: 2s;
+}
+.tooltip-3{
+  display: none;
+  position: absolute;
+  padding: 1em;
+  max-width: 12rem;
+  background: var(--background-color);
+}
+.more-info3:hover +.tooltip-3{
+  display: flex;
+  transition: 2s;
+}
+.tooltip-4{
+  display: none;
+  position: absolute;
+  padding: 1em;
+  max-width: 12rem;
+  background: var(--background-color);
+}
+.more-info4:hover +.tooltip-4{
+  display: flex;
+  transition: 2s;
+}
+.tooltip-5{
+  display: none;
+  position: absolute;
+  padding: 1em;
+  max-width: 12rem;
+  background: var(--background-color);
+}
+.more-info5:hover +.tooltip-5{
+  display: flex;
+  transition: 2s;
 }
 .acknowledgementBox{
   width: 1em !important;
@@ -214,6 +272,43 @@ input{
   width: 8rem;
 }
 @media only screen and (min-width: 768px){
+  body{
+    height: 100vh;
+  }
+  .form-wrapper{
+    padding-bottom: 2rem;
+  }
+  Form{
+    display: grid;
+    font-size: 1.25rem;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 8rem 8rem 8rem 25rem;
+    width: 75%;
+  }
+  Form > label{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .dollar-field {
+    text-indent: 2rem;
+  }
+  .name-field{
+    text-indent: 2rem;
+  }
+  .email-field{
+    text-indent: 2rem;
+  }
+  input{
+    padding: .35rem;
+    min-width: 15rem;
+  }
+  .get-results-wrapper{
+    grid-column: span 2;
+  }
+}
+
+@media only screen and (min-width: 1024px){
   body{
     height: 100vh;
   }

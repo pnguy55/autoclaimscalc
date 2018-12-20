@@ -5,6 +5,8 @@ import Yup from 'yup'
 import './index.css'
 import * as serviceWorker from './serviceWorker'
 import axios from 'axios'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInfoCircle } from '@fortawesome/pro-solid-svg-icons'
 
 const App = ({
     values,
@@ -17,27 +19,23 @@ const App = ({
         <div className = 'form-wrapper'>
             <Form>
                 <label>
-                    Medical Expenses:<div></div>
+                    <div>Medical Expenses: <FontAwesomeIcon className='more-info1' icon={faInfoCircle} /><div className='tooltip-1'>The total amount you've spent on medical bills, you can give us your best estimate.</div></div>
                     <Field className='dollar-field' type = 'number' name = 'medExp' placeholder = '0' />
                 </label>
                 <label>
-                    Property Damage:<div></div>
+                    <div>Property Damage: <FontAwesomeIcon className='more-info2' icon={faInfoCircle} /><div className='tooltip-2'>What's your best estimate for the total costs of replacing your vehicle and/or any personal property damaged in the accident.</div></div>
                     <Field className='dollar-field' type = 'number' name = 'propDmg' placeholder = '0' />
                 </label>
                 <label>
-                    Lost Wages:<div></div>
+                    <div>Lost Wages: <FontAwesomeIcon className='more-info3' icon={faInfoCircle} /><div className='tooltip-3'>How much money have you lost from missed work due to the accident?</div></div>
                     <Field className='dollar-field' type = 'number' name = 'lostWages' placeholder = '0' />
                 </label>
                 <label>
-                    Lost Future Earnings:<div></div>
+                    <div>Lost Future Earnings: <FontAwesomeIcon className='more-info4' icon={faInfoCircle} /><div className='tooltip-4'>Estimate of how much money you will miss out on from future work due to your injury.</div></div>
                     <Field className='dollar-field' type = 'number' name = 'lostFutureEarnings' placeholder = '0' />
                 </label>
                 <label>
-                    Future Medical Expenses:<div></div>
-                    <Field className='dollar-field' type = 'number' name = 'futureMedExp' placeholder = '0' />
-                </label>
-                <label>
-                    Future Medical Expenses:<div></div>
+                    <div>Future Medical Expenses: <FontAwesomeIcon className='more-info5' icon={faInfoCircle} /><div className='tooltip-5'>How much do you think this injury will cost you in future medical expenses?</div></div>
                     <Field className='dollar-field' type = 'number' name = 'futureMedExp' placeholder = '0' />
                 </label>
 
@@ -62,7 +60,7 @@ const App = ({
         </div>
 
         <div className='results-window hide'>
-            <h3 className='results-words'>You could be entitled to a settlement of ${values.thingie = 0+values.medExp+values.propDmg+values.lostWages+values.lostFutureEarnings+values.futureMedExp}!</h3>
+            <h3 className='results-words'>You could be entitled to a settlement of ${values.total}!</h3>
             <a onClick={()=>{var popUp = document.querySelector('.results-window');
                             popUp.classList.toggle('hide');
                             popUp.classList.toggle('show');}}>
@@ -104,7 +102,7 @@ const FormikApp = withFormik({
     },
     handleSubmit(values) {
 
-        values.total = values.name+values.email;
+        values.total = 0+values.medExp+values.propDmg+values.lostWages+values.lostFutureEarnings+values.futureMedExp;
 
         var popUp = document.querySelector('.results-window');
         

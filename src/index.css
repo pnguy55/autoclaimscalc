@@ -33,12 +33,12 @@ body {
   --body-italic: os-italic;
 }
 
-@font-face {font-family: lb; src: url('./assets/fonts/libre-baskerville/LibreBaskerville-Regular.ttf');}
-@font-face {font-family: lb-bold; src: url('./assets/fonts/libre-baskerville/LibreBaskerville-Bold.ttf');}
-@font-face{font-family: lb-italic; src: url('./assets/fonts/libre-baskerville/LibreBaskerville-Italic.ttf');}
-@font-face {font-family: os; src: url('./assets/fonts/open-sans/OpenSans-Regular.ttf');}
-@font-face {font-family: os-bold; src: url('./assets/fonts/open-sans/OpenSans-Bold.ttf');}
-@font-face{font-family: os-italic; src: url('./assets/fonts/open-sans/OpenSans-Italic.ttf');}
+@font-face {font-family: lb; src: url(' /assets/fonts/libre-baskerville/LibreBaskerville-Regular.ttf');}
+@font-face {font-family: lb-bold; src: url('/assets/fonts/libre-baskerville/LibreBaskerville-Bold.ttf');}
+@font-face{font-family: lb-italic; src: url('/assets/fonts/libre-baskerville/LibreBaskerville-Italic.ttf');}
+@font-face {font-family: os; src: url('/assets/fonts/open-sans/OpenSans-Regular.ttf');}
+@font-face {font-family: os-bold; src: url('/assets/fonts/open-sans/OpenSans-Bold.ttf');}
+@font-face{font-family: os-italic; src: url('/assets/fonts/open-sans/OpenSans-Italic.ttf');}
 
 
 #root{
@@ -63,7 +63,7 @@ body {
   display: flex;
 }
 .wrapper{
-  background-image: url(./assets/car-accident.jpg);
+  background-image: url(/assets/car-accident.jpg);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -106,20 +106,20 @@ Form >* {
   margin: 1em;
 }
 .dollar-field {
-  background-image: url(./assets/svgs/usd-square.svg);
+  background-image: url(/assets/svgs/usd-square.svg);
   background-repeat: no-repeat;
   background-position: 2px 0px;
   text-indent: 1rem;
   color: var(--primary);
 }
 .name-field{
-  background-image: url(./assets/svgs/user-circle.svg);
+  background-image: url(/assets/svgs/user-circle.svg);
   background-repeat: no-repeat;
   background-position: 1px 0px;
   text-indent: 1rem;
 }
 .email-field{
-  background-image: url(./assets/svgs/at.svg);
+  background-image: url(/assets/svgs/at.svg);
   background-repeat: no-repeat;
   background-position: 1px 0px;
   text-indent: 1rem;

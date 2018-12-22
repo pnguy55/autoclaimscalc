@@ -99,7 +99,8 @@ Form{
   height: fit-content;
   font-family: var(--body-bold);
   background: var(--background-secondary);
-  color: var(--logo-complement);
+  color: var(--primary-dark);
+  font-size: .92rem;
 }
 
 Form >* {
@@ -138,6 +139,7 @@ input{
   width: 70%;
   min-width: 4rem;
 }
+/* Tooltips start */
 .tooltip-1{
   display: none;
   position: absolute;
@@ -193,6 +195,25 @@ input{
   display: flex;
   transition: 2s;
 }
+.tooltip-6{
+  display: none;
+  position: absolute;
+  padding: 1em;
+  max-width: 12rem;
+  background: var(--background-color);
+}
+.more-info6:hover +.tooltip-6{
+  display: flex;
+  transition: 2s;
+}
+
+.tooltip{
+  flex-direction: column;
+  font-size: .95rem;
+  font-family: var(--body);
+
+}
+/* Tooltips end */
 .acknowledgementBox{
   width: 1em !important;
   min-width: 1em !important;
@@ -215,6 +236,7 @@ input{
   color: var(--text-color);
 }
 
+/* Progress bar start */
 .progress-bar{
   position: fixed;
   bottom:0px;
@@ -246,7 +268,7 @@ input{
 .filled-in{
   background: var(--primary-dark) !important;
 }
-
+/* Progress bar end */
 .results-window{
   position: fixed;
   z-index: 99;
@@ -258,10 +280,24 @@ input{
   background: var(--primary-dark);
   color: var(--text-color); 
 }
-.results-words{
+.results-wrap{
   display: flex;
   width: 80%;
+  background: var(--background-color);
+  color: var(--primary-dark);
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
+.results-words{
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  text-align: center;
+  justify-content: center;
+}
+.results-words > span {
+  font-size: 1.75rem;
 }
 .close-button{
   display: flex;
@@ -309,37 +345,13 @@ input{
 }
 
 @media only screen and (min-width: 1024px){
-  body{
-    height: 100vh;
-  }
-  .form-wrapper{
-    padding-bottom: 2rem;
-  }
+
   Form{
-    display: grid;
-    font-size: 1.25rem;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 8rem 8rem 8rem 25rem;
     width: 65%;
+    font-size: 1.5;
   }
-  Form > label{
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-  }
-  .dollar-field {
-    text-indent: 2rem;
-  }
-  .name-field{
-    text-indent: 2rem;
-  }
-  .email-field{
-    text-indent: 2rem;
-  }
-  input{
-    padding: .35rem;
-  }
-  .get-results-wrapper{
-    grid-column: span 2;
+
+  .results-wrap{
+    width: 40%;
   }
 }

@@ -19,35 +19,53 @@ const App = ({
         <div className = 'form-wrapper'>
             <Form>
                 <label>
-                    <div>Medical Expenses: <FontAwesomeIcon className='more-info1' icon={faInfoCircle} /><div className='tooltip-1'>The total amount you've spent on medical bills, you can give us your best estimate.</div></div>
-                    <Field className='dollar-field' type = 'number' name = 'medExp' placeholder = '0' />
+                    <div>Medical Expenses: <FontAwesomeIcon className='more-info1' icon={faInfoCircle} /><div className='tooltip-1 tooltip'>The total amount you've spent on medical bills, you can give us your best estimate.</div></div>
+                    <Field className='dollar-field' type = 'number' name = 'medExp' placeholder = {values.medExp} />
                 </label>
                 <label>
-                    <div>Property Damage: <FontAwesomeIcon className='more-info2' icon={faInfoCircle} /><div className='tooltip-2'>What's your best estimate for the total costs of replacing your vehicle and/or any personal property damaged in the accident.</div></div>
-                    <Field className='dollar-field' type = 'number' name = 'propDmg' placeholder = '0' />
+                    <div>Property Damage: <FontAwesomeIcon className='more-info2' icon={faInfoCircle} /><div className='tooltip-2 tooltip'>What's your best estimate for the total costs of replacing your vehicle and/or any personal property damaged in the accident.</div></div>
+                    <Field className='dollar-field' type = 'number' name = 'propDmg' placeholder = '' />
                 </label>
                 <label>
-                    <div>Lost Wages: <FontAwesomeIcon className='more-info3' icon={faInfoCircle} /><div className='tooltip-3'>How much money have you lost from missed work due to the accident?</div></div>
-                    <Field className='dollar-field' type = 'number' name = 'lostWages' placeholder = '0' />
+                    <div>Lost Wages: <FontAwesomeIcon className='more-info3' icon={faInfoCircle} /><div className='tooltip-3 tooltip'>How much money have you lost from missed work due to the accident?</div></div>
+                    <Field className='dollar-field' type = 'number' name = 'lostWages' placeholder = '' />
                 </label>
                 <label>
-                    <div>Lost Future Earnings: <FontAwesomeIcon className='more-info4' icon={faInfoCircle} /><div className='tooltip-4'>Estimate of how much money you will miss out on from future work due to your injury.</div></div>
-                    <Field className='dollar-field' type = 'number' name = 'lostFutureEarnings' placeholder = '0' />
+                    <div>Lost Future Earnings: <FontAwesomeIcon className='more-info4' icon={faInfoCircle} /><div className='tooltip-4 tooltip'>Estimate of how much money you will miss out on from future work due to your injury.</div></div>
+                    <Field className='dollar-field' type = 'number' name = 'lostFutureEarnings' placeholder = '' />
                 </label>
                 <label>
-                    <div>Future Medical Expenses: <FontAwesomeIcon className='more-info5' icon={faInfoCircle} /><div className='tooltip-5'>How much do you think this injury will cost you in future medical expenses?</div></div>
-                    <Field className='dollar-field' type = 'number' name = 'futureMedExp' placeholder = '0' />
+                    <div>Future Medical Expenses: <FontAwesomeIcon className='more-info5' icon={faInfoCircle} /><div className='tooltip-5 tooltip'>How much do you think this injury will cost you in future medical expenses?</div></div>
+                    <Field className='dollar-field' type = 'number' name = 'futureMedExp' placeholder = '' />
+                </label>
+                <label>
+                    <div>Pain & Suffering Multiplier: <FontAwesomeIcon className='more-info6' icon={faInfoCircle} />
+                        <div className='tooltip-6 tooltip'>
+                            <h4>What is a pain & suffering multiplier?</h4>
+                            <p>
+                                A number between 1.5 and 5 guaging subjective pain based on:
+                                <ul>
+                                    <li>The duration and amount of pain resulting from the injury</li>
+                                    <li>The impact on your daily life</li>
+                                    <li>Worry and stress resulting from the injury</li>
+                                    <li>Emotional impact of the accident</li>
+                                    <li>Other forms of intanglible pain</li>
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                    <Field className='dollar-field' type = 'number' name = 'futureMedExp' placeholder = '' />
                 </label>
 
                 <div className='get-results-wrapper centered-spaced-column'>
 
                     <label>
-                        Please enter your name:<div></div>
+                        Enter your name:<div></div>
                         <Field className='name-field' type = 'name' name = 'name' placeholder = 'Name' />
                     </label>
 
                     <label>
-                        Please enter your e-mail:<div></div>
+                        Enter your e-mail:<div></div>
                         <Field className='email-field' type = 'email' name = 'email' placeholder = 'Email' />
                     </label>
                     <label>
@@ -60,12 +78,14 @@ const App = ({
         </div>
 
         <div className='results-window hide'>
-            <h3 className='results-words'>You could be entitled to a settlement of ${values.total}!</h3>
-            <a onClick={()=>{var popUp = document.querySelector('.results-window');
-                            popUp.classList.toggle('hide');
-                            popUp.classList.toggle('show');}}>
-                <h3 className='close-button'>- CLOSE -</h3>
-            </a>
+            <div className='results-wrap'>
+                <h3 className='results-words'>You could be entitled to a settlement of <span>${values.total = values.medExp+values.propDmg+values.lostWages+values.lostFutureEarnings+values.futureMedExp}!</span></h3>
+                <a onClick={()=>{var popUp = document.querySelector('.results-window');
+                                popUp.classList.toggle('hide');
+                                popUp.classList.toggle('show');}}>
+                    <h3 className='close-button'>- CLOSE -</h3>
+                </a>
+            </div>
         </div>        
         <div className='progress-bar'>
         <h3>Progress Bar</h3>
@@ -96,13 +116,12 @@ const FormikApp = withFormik({
             futureMedExp: futureMedExp || 0,
             name: name || '',
             email: email || '',
-            total: '',
+            total: 0,
             acknowledged: acknowledged || false
         }
     },
     handleSubmit(values) {
 
-        values.total = 0+values.medExp+values.propDmg+values.lostWages+values.lostFutureEarnings+values.futureMedExp;
 
         var popUp = document.querySelector('.results-window');
         

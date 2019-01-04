@@ -19,35 +19,28 @@ const App = ({
         </nav>
         <div className = 'form-wrapper'>
             <Form>
+                
                 <label>
-                    <div>Medical Expenses: <FontAwesomeIcon className='more-info1' icon={faInfoCircle} /><div className='tooltip-1 tooltip'>The total amount you've spent on medical bills, you can give us your best estimate.</div></div>
-                    <Field  onSelect={()=>{
-                                values.medExpProg++;
-                                if(values.medExpProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'medExp' placeholder = {values.medExp} />
-                    {touched.medExp && errors.medExp && <p className='error-message'>*{errors.medExp}</p>}
-
-                </label>
-                <label>
-                    <div>Property Damage: <FontAwesomeIcon className='more-info2' icon={faInfoCircle} /><div className='tooltip-2 tooltip'>What's your best estimate for the total costs of replacing your vehicle and/or any personal property damaged in the accident.</div></div>
-                    <Field onSelect={()=>{
-                                values.propDmgProg++;
-                                if(values.propDmgProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'propDmg' placeholder = '' />
-                    {touched.propDmg && errors.propDmg && <p className='error-message'>*{errors.propDmg}</p>}
-
-                </label>
-                <label>
-                    <div>Lost Wages: <FontAwesomeIcon className='more-info3' icon={faInfoCircle} /><div className='tooltip-3 tooltip'>How much money have you lost from missed work due to the accident?</div></div>
+                    <div>Past Lost Wages: <FontAwesomeIcon className='more-info3' icon={faInfoCircle} /><div className='tooltip-3 tooltip'>How much money have you lost from missed work due to the accident?</div></div>
                     <Field onSelect={()=>{
                                 values.lostWagesProg++;
                                 if(values.lostWagesProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'lostWages' placeholder = '' />
                     {touched.lostWages && errors.lostWages && <p className='error-message'>*{errors.lostWages}</p>}
                 </label>
                 <label>
-                    <div>Lost Future Earnings: <FontAwesomeIcon className='more-info4' icon={faInfoCircle} /><div className='tooltip-4 tooltip'>Estimate of how much money you will miss out on from future work due to your injury.</div></div>
+                    <div>Future Lost Earnings: <FontAwesomeIcon className='more-info4' icon={faInfoCircle} /><div className='tooltip-4 tooltip'>Estimate of how much money you will miss out on from future work due to your injury.</div></div>
                     <Field onSelect={()=>{
                                 values.lostFutureEarningsProg++;
                                 if(values.lostFutureEarningsProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'lostFutureEarnings' placeholder = '' />
                     {touched.lostFutureEarnings && errors.lostFutureEarnings && <p className='error-message'>*{errors.lostFutureEarnings}</p>}
+                </label>
+                <label>
+                    <div>Past Medical Expenses: <FontAwesomeIcon className='more-info1' icon={faInfoCircle} /><div className='tooltip-1 tooltip'>The total amount you've spent on medical bills, you can give us your best estimate.</div></div>
+                    <Field  onSelect={()=>{
+                                values.medExpProg++;
+                                if(values.medExpProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'medExp' placeholder = {values.medExp} />
+                    {touched.medExp && errors.medExp && <p className='error-message'>*{errors.medExp}</p>}
+
                 </label>
                 <label>
                     <div>Future Medical Expenses: <FontAwesomeIcon className='more-info5' icon={faInfoCircle} /><div className='tooltip-5 tooltip'>How much do you think this injury will cost you in future medical expenses?</div></div>
@@ -57,18 +50,11 @@ const App = ({
                     {touched.futureMedExp && errors.futureMedExp && <p className='error-message'>*{errors.futureMedExp}</p>}
                 </label>
                 <label>
-                    <div>Pain & Suffering Multiplier: <FontAwesomeIcon className='more-info6' icon={faInfoCircle} />
+                    <div>Past Months of Treatment: <FontAwesomeIcon className='more-info6' icon={faInfoCircle} />
                         <div className='tooltip-6 tooltip'>
-                            <h4>What is a pain & suffering multiplier?</h4>
+
                             <div>
-                                A number between 1.5 and 5 guaging subjective pain based on:
-                                <ul>
-                                    <li>The duration and amount of pain resulting from the injury</li>
-                                    <li>The impact on your daily life</li>
-                                    <li>Worry and stress resulting from the injury</li>
-                                    <li>Emotional impact of the accident</li>
-                                    <li>Other forms of intanglible pain</li>
-                                </ul>
+                                How many months of treatment have you gone through already?
                             </div>
                         </div>
                     </div>
@@ -76,6 +62,20 @@ const App = ({
                                 values.painAndSufferingProg++;
                                 if(values.painAndSufferingProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'painAndSuffering' placeholder = '' />
                     {touched.painAndSuffering && errors.painAndSuffering && <p className='error-message'>*{errors.painAndSuffering}</p>}
+                </label>
+                <label>
+                    <div>Future Months of Treatment: <FontAwesomeIcon className='more-info7' icon={faInfoCircle} />
+                        <div className='tooltip-7 tooltip'>
+
+                            <div>
+                                How many months of treatment do you expect to go through in the future?
+                            </div>
+                        </div>
+                    </div>
+                    <Field onSelect={()=>{
+                                values.futurePainAndSufferingProg++;
+                                if(values.futurePainAndSufferingProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'futurePainAndSuffering' placeholder = '' />
+                    {touched.futurePainAndSuffering && errors.futurePainAndSuffering && <p className='error-message'>*{errors.futurePainAndSuffering}</p>}
                 </label>
 
                 <div className='get-results-wrapper centered-spaced-column'>
@@ -138,7 +138,7 @@ const App = ({
 const FormikApp = withFormik({
     mapPropsToValues( {medExp, propDmg, lostWages, lostFutureEarnings, futureMedExp, painAndSuffering ,email, name, acknowledged,
                         medExpProg, propDmgProg, lostWagesProg, lostFutureEarningsProg, futureMedExpProg, painAndSufferingProg,
-                        nameProg, emailProg, acknowledgedProg} ) {
+                        futurePainAndSuffering,futurePainAndSufferingProg,nameProg, emailProg, acknowledgedProg} ) {
 
         return {
             subject: "Claims Calculator Results",
@@ -153,8 +153,10 @@ const FormikApp = withFormik({
             lostFutureEarningsProg: lostFutureEarningsProg || 0,
             futureMedExp: futureMedExp || 0,
             futureMedExpProg: futureMedExpProg || 0,
-            painAndSuffering: painAndSuffering || 1.5,
+            painAndSuffering: painAndSuffering || 0,
             painAndSufferingProg: painAndSufferingProg || 0,
+            futurePainAndSuffering: futurePainAndSuffering || 0,
+            futurePainAndSufferingProg: futurePainAndSufferingProg || 0,
             name: name || '',
             nameProg: nameProg || 0,
             email: email || '',
@@ -168,11 +170,11 @@ const FormikApp = withFormik({
         name: Yup.string().required(),
         email: Yup.string().email().required(),
         medExp: Yup.number().min(0,'Medical expense must be at least 0').required("Medical expenses are required."),
-        propDmg: Yup.number().min(0,'Property damage must be at least 0').required('Property damages are required.'),
         lostWages: Yup.number().min(0,'Lost wages must be at least 0').required('Lost wages are required.'),
         lostFutureEarnings: Yup.number().min(0,'Lost future earnings must be at least 0').required('Lost future earnings are a required.'),
         futureMedExp: Yup.number().integer().min(0,'Future medical expense must be at least 0').required('Future medical expenses are required.'),
-        painAndSuffering: Yup.number().min(1.5,'Enter at least 1.5').max(5,'Enter at most 5').required('Pain & suffering multiplier is required.'),
+        painAndSuffering: Yup.number().integer('Please enter a whole number').min(0, 'Months of treatment must be at least 0').required('Months of treatment is required.'),
+        futurePainAndSuffering: Yup.number().integer('Please enter a whole number').min(0, 'Months of treatment must be at least 0').required('Months of treatment is required.'),
         acknowledged: Yup.boolean().oneOf([true],'Must Accept Acknowledgement')
 
     }),

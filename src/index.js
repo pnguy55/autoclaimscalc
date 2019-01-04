@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { withFormik, Form, Field } from 'formik'
-import Yup from 'yup'
+import * as Yup from 'yup'
 import './index.css'
 import * as serviceWorker from './serviceWorker'
 import axios from 'axios'
@@ -10,7 +10,8 @@ import { faInfoCircle } from '@fortawesome/pro-solid-svg-icons'
 
 const App = ({
     values,
-    handleChange
+    errors,
+    touched
 }) => (
     <div className = 'wrapper'>
         <nav>
@@ -23,30 +24,37 @@ const App = ({
                     <Field  onSelect={()=>{
                                 values.medExpProg++;
                                 if(values.medExpProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'medExp' placeholder = {values.medExp} />
+                    {touched.medExp && errors.medExp && <p className='error-message'>*{errors.medExp}</p>}
+
                 </label>
                 <label>
                     <div>Property Damage: <FontAwesomeIcon className='more-info2' icon={faInfoCircle} /><div className='tooltip-2 tooltip'>What's your best estimate for the total costs of replacing your vehicle and/or any personal property damaged in the accident.</div></div>
                     <Field onSelect={()=>{
                                 values.propDmgProg++;
                                 if(values.propDmgProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'propDmg' placeholder = '' />
+                    {touched.propDmg && errors.propDmg && <p className='error-message'>*{errors.propDmg}</p>}
+
                 </label>
                 <label>
                     <div>Lost Wages: <FontAwesomeIcon className='more-info3' icon={faInfoCircle} /><div className='tooltip-3 tooltip'>How much money have you lost from missed work due to the accident?</div></div>
                     <Field onSelect={()=>{
                                 values.lostWagesProg++;
                                 if(values.lostWagesProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'lostWages' placeholder = '' />
+                    {touched.lostWages && errors.lostWages && <p className='error-message'>*{errors.lostWages}</p>}
                 </label>
                 <label>
                     <div>Lost Future Earnings: <FontAwesomeIcon className='more-info4' icon={faInfoCircle} /><div className='tooltip-4 tooltip'>Estimate of how much money you will miss out on from future work due to your injury.</div></div>
                     <Field onSelect={()=>{
                                 values.lostFutureEarningsProg++;
                                 if(values.lostFutureEarningsProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'lostFutureEarnings' placeholder = '' />
+                    {touched.lostFutureEarnings && errors.lostFutureEarnings && <p className='error-message'>*{errors.lostFutureEarnings}</p>}
                 </label>
                 <label>
                     <div>Future Medical Expenses: <FontAwesomeIcon className='more-info5' icon={faInfoCircle} /><div className='tooltip-5 tooltip'>How much do you think this injury will cost you in future medical expenses?</div></div>
                     <Field onSelect={()=>{
                                 values.futureMedExpProg++;
                                 if(values.futureMedExpProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'futureMedExp' placeholder = '' />
+                    {touched.futureMedExp && errors.futureMedExp && <p className='error-message'>*{errors.futureMedExp}</p>}
                 </label>
                 <label>
                     <div>Pain & Suffering Multiplier: <FontAwesomeIcon className='more-info6' icon={faInfoCircle} />
@@ -66,7 +74,8 @@ const App = ({
                     </div>
                     <Field onSelect={()=>{
                                 values.painAndSufferingProg++;
-                                if(values.painAndSufferingProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'futureMedExp' placeholder = '' />
+                                if(values.painAndSufferingProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'painAndSuffering' placeholder = '' />
+                    {touched.painAndSuffering && errors.painAndSuffering && <p className='error-message'>*{errors.painAndSuffering}</p>}
                 </label>
 
                 <div className='get-results-wrapper centered-spaced-column'>
@@ -75,20 +84,24 @@ const App = ({
                         Enter your name:<div></div>
                         <Field onSelect={()=>{
                                 values.nameProg++;
-                                if(values.nameProg === 1){values.progress++;}}} className='name-field' type = 'name' name = 'name' placeholder = 'Name' />
+                                if(values.nameProg === 1){values.progress++;}}} autoComplete='new-password' className='name-field' type = 'name' name = 'name' placeholder = 'Name' />
+                         {touched.name && errors.name && <p className='error-message'>*{errors.name}</p>}
                     </label>
 
                     <label>
                         Enter your e-mail:<div></div>
                         <Field onSelect={()=>{
                                 values.emailProg++;
-                                if(values.emailProg === 1){values.progress++;}}} className='email-field' type = 'email' name = 'email' placeholder = 'Email' />
+                                if(values.emailProg === 1){values.progress++;}}} autoComplete='new-password' className='email-field' type = 'email' name = 'email' placeholder = 'Email' />
+                        {touched.email && errors.email && <p className='error-message'>*{errors.email}</p>}
                     </label>
                     <label>
                         <Field onSelect={()=>{
                                 values.acknowledgedProg++;
                                 if(values.acknowledgedProg === 1){values.progress++;}}} className='acknowledgementBox' type = 'checkbox' name = 'acknowledged' checked = {values.acknowledged} />
                         I understand that this number is only an estimate and not a guarantee of any sort.
+                        {touched.acknowledged && errors.acknowledged && <p className='error-message'>*{errors.acknowledged}</p>}
+
                     </label>
                     <button className='centered-column'>Get Results</button>
                 </div>
@@ -97,8 +110,8 @@ const App = ({
 
         <div className='results-window hide'>
             <div className='results-wrap'>
-                <h3 className='results-words'>You could be entitled to a settlement of <span>${values.total = values.medExp+values.propDmg+values.lostWages+values.lostFutureEarnings+values.futureMedExp}!</span></h3>
-                <a onClick={()=>{var popUp = document.querySelector('.results-window');
+                <h3 className='results-words'>You could be entitled to a settlement of <span>${values.total = (values.medExp+values.propDmg+values.lostWages+values.lostFutureEarnings+values.futureMedExp)*values.painAndSuffering}!</span></h3>
+                <a href='javascript:void(0)' onClick={()=>{var popUp = document.querySelector('.results-window');
                                 popUp.classList.toggle('hide');
                                 popUp.classList.toggle('show');}}>
                     <h3 className='close-button'>- CLOSE -</h3>
@@ -111,7 +124,7 @@ const App = ({
                 <li className={values.progress >= 1 ? 'filled-in' : "''"}></li>
                 <li className={values.progress >= 2 ? 'filled-in' : "''"}></li>
                 <li className={values.progress >= 3 ? 'filled-in' : "''"}></li>
-                <li className={values.progress >= 4? 'filled-in' : "''"}></li>
+                <li className={values.progress >= 4 ? 'filled-in' : "''"}></li>
                 <li className={values.progress >= 5 ? 'filled-in' : "''"}></li>
                 <li className={values.progress >= 6 ? 'filled-in' : "''"}></li>
                 <li className={values.progress >= 7 ? 'filled-in' : "''"}></li>
@@ -140,7 +153,7 @@ const FormikApp = withFormik({
             lostFutureEarningsProg: lostFutureEarningsProg || 0,
             futureMedExp: futureMedExp || 0,
             futureMedExpProg: futureMedExpProg || 0,
-            painAndSuffering: painAndSuffering || 0,
+            painAndSuffering: painAndSuffering || 1.5,
             painAndSufferingProg: painAndSufferingProg || 0,
             name: name || '',
             nameProg: nameProg || 0,
@@ -151,6 +164,18 @@ const FormikApp = withFormik({
             acknowledgedProg: acknowledgedProg || 0
         }
     },
+    validationSchema: Yup.object().shape({
+        name: Yup.string().required(),
+        email: Yup.string().email().required(),
+        medExp: Yup.number().min(0,'Medical expense must be at least 0').required("Medical expenses are required."),
+        propDmg: Yup.number().min(0,'Property damage must be at least 0').required('Property damages are required.'),
+        lostWages: Yup.number().min(0,'Lost wages must be at least 0').required('Lost wages are required.'),
+        lostFutureEarnings: Yup.number().min(0,'Lost future earnings must be at least 0').required('Lost future earnings are a required.'),
+        futureMedExp: Yup.number().integer().min(0,'Future medical expense must be at least 0').required('Future medical expenses are required.'),
+        painAndSuffering: Yup.number().min(1.5,'Enter at least 1.5').max(5,'Enter at most 5').required('Pain & suffering multiplier is required.'),
+        acknowledged: Yup.boolean().oneOf([true],'Must Accept Acknowledgement')
+
+    }),
     handleSubmit(values) {
 
 
@@ -160,11 +185,11 @@ const FormikApp = withFormik({
         popUp.classList.toggle('show');
         //axios here
         console.log(JSON.stringify(values))
-        // axios({
-        //     method: 'post',
-        //     url: 'https://m1onjfbto8.execute-api.us-east-1.amazonaws.com/mailer/mailer',
-        //     data: JSON.stringify(values)
-        //   });
+        axios({
+            method: 'post',
+            url: 'https://m1onjfbto8.execute-api.us-east-1.amazonaws.com/mailer/mailer',
+            data: JSON.stringify(values)
+          });
     }
 })( App )
 

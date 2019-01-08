@@ -23,22 +23,22 @@ body {
   --secondary-dark: #352000;
   --text-color: #ffffff;
   --background-color: #e1e2e1;
-  --background-secondary: #f5f5f6;
+  --background-secondary: #ffffff;
   /*Font Variables*/
-  --header: lb;
-  --header-bold: lb-bold;
-  --header-italic: lb-italic;
-  --body: os;
-  --body-bold: os-bold;
-  --body-italic: os-italic;
+  --header: mont;
+  --header-bold: mont-bold;
+  --header-italic: mont-italic;
+  --body: neuton;
+  --body-bold: neuton-bold;
+  --body-italic: neuton-italic;
 }
 
-@font-face {font-family: lb; src: url(' /assets/fonts/libre-baskerville/LibreBaskerville-Regular.ttf');}
-@font-face {font-family: lb-bold; src: url('/assets/fonts/libre-baskerville/LibreBaskerville-Bold.ttf');}
-@font-face{font-family: lb-italic; src: url('/assets/fonts/libre-baskerville/LibreBaskerville-Italic.ttf');}
-@font-face {font-family: os; src: url('/assets/fonts/open-sans/OpenSans-Regular.ttf');}
-@font-face {font-family: os-bold; src: url('/assets/fonts/open-sans/OpenSans-Bold.ttf');}
-@font-face{font-family: os-italic; src: url('/assets/fonts/open-sans/OpenSans-Italic.ttf');}
+@font-face {font-family: mont; src: url(' /assets/fonts/Montserrat/Montserrat-Regular.ttf');}
+@font-face {font-family: mont-bold; src: url('/assets/fonts/Montserrat/Montserrat-Bold.ttf');}
+@font-face{font-family: mont-italic; src: url('/assets/fonts/Montserrat/Montserrat-Light.ttf');}
+@font-face {font-family: neuton; src: url('/assets/fonts/neuton/Neuton-Regular.ttf');}
+@font-face {font-family: neuton-bold; src: url('/assets/fonts/neuton/Neuton-Bold.ttf');}
+@font-face{font-family: neuton-italic; src: url('/assets/fonts/neuton/Neuton-Italic.ttf');}
 
 
 #root{
@@ -64,11 +64,12 @@ body {
 }
 .wrapper{
   background-image: url(/assets/car-accident.jpg);
+  background-size: cover;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: 140%;
 }
 nav{
   width: 90%;
@@ -100,7 +101,7 @@ Form{
   font-family: var(--body-bold);
   background: var(--background-secondary);
   color: var(--primary-dark);
-  font-size: .92rem;
+  font-size: 1.14rem;
 }
 
 Form >* {
@@ -109,7 +110,7 @@ Form >* {
 .error-message{
   color: red;
   font: var(--body);
-  font-size: .75rem;
+  font-size: 1.5rem;
 }
 .dollar-field {
   background-image: url(/assets/svgs/usd-square.svg);
@@ -145,6 +146,7 @@ input{
   min-width: 4rem;
 }
 /* Tooltips start */
+
 .tooltip-1{
   display: none;
   position: absolute;
@@ -225,7 +227,7 @@ input{
 
 .tooltip{
   flex-direction: column;
-  font-size: .95rem;
+  font-size: 2rem;
   font-family: var(--body);
 
 }
@@ -234,10 +236,18 @@ input{
   width: 1em !important;
   min-width: 1em !important;
 }
+.checkBoxLabel{
+  font-family: var(--body);
+  border-top: 2px solid var(--primary-dark);
+  margin: .5rem;
+}
 .get-results-wrapper{
   margin-top: 2rem;
-  height: 25rem;
+  height: fit-content;
   border-top: 2px solid var(--primary-dark);
+}
+.get-results-wrapper > label{
+  margin-bottom: .75rem;
 }
 .get-results-wrapper > h3{
   padding: .5rem;
@@ -278,7 +288,7 @@ input{
 .progress-bar > ul > li{
   flex: 1;
   background: var(--primary-light);
-  border-right: 1px solid var(--primary-light);
+  border-right: 2px solid var(--primary-light);
 }
 
 .filled-in{
@@ -327,19 +337,30 @@ input{
   body{
     height: 100vh;
   }
+  nav{
+    font-size: 1.5rem;
+  }
+  .wrapper{
+    height: 185%;
+  }
   .form-wrapper{
     padding-bottom: 2rem;
+    height: 100%;
   }
   Form{
-    display: grid;
-    font-size: 1.25rem;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 8rem 8rem 8rem 25rem;
-    width: 75%;
+    font-size: 2rem;
+    width: 85%;
+    margin-top: -1rem;
+    justify-content: flex-start;
+    align-items: flex-start; 
+  }
+  .numberEntry{
+    display: flex;
+    flex-direction: column;
+    margin-left: 8rem;
   }
   Form > label{
     display: flex;
-    justify-content: center;
     flex-direction: column;
   }
   .dollar-field {
@@ -355,18 +376,36 @@ input{
     padding: .35rem;
     min-width: 15rem;
   }
+  .tooltip{
+    font-size: 1.5rem;
+  }
   .get-results-wrapper{
     grid-column: span 2;
+    height: 45rem;
+    width: 90%;
+  }
+  .checkBoxLabel{
+    max-width: 20rem;
   }
 }
 
 @media only screen and (min-width: 1024px){
-
-  Form{
-    width: 65%;
-    font-size: 1.5;
+  .wrapper{
+    height: 140%;
   }
-
+  nav{
+    font-size: 2rem;
+  }
+  Form{
+    width: 90%;
+    font-size: 1.75rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 10rem 10rem 10rem 47rem;
+  }
+  .numberEntry{
+    margin-left: 2rem;
+  }
   .results-wrap{
     width: 40%;
   }

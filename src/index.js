@@ -20,21 +20,21 @@ const App = ({
         <div className = 'form-wrapper'>
             <Form>
                 
-                <label>
+                <label className='numberEntry'>
                     <div>Past Lost Wages: <FontAwesomeIcon className='more-info3' icon={faInfoCircle} /><div className='tooltip-3 tooltip'>How much money have you lost from missed work due to the accident?</div></div>
                     <Field onSelect={()=>{
                                 values.lostWagesProg++;
-                                if(values.lostWagesProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'lostWages' placeholder = '' />
+                                if(values.lostWagesProg === 1){values.progress++;}}} className='lostWages dollar-field' type = 'number' name = 'lostWages' placeholder = '' />
                     {touched.lostWages && errors.lostWages && <p className='error-message'>*{errors.lostWages}</p>}
                 </label>
-                <label>
+                <label className='numberEntry'>
                     <div>Future Lost Earnings: <FontAwesomeIcon className='more-info4' icon={faInfoCircle} /><div className='tooltip-4 tooltip'>Estimate of how much money you will miss out on from future work due to your injury.</div></div>
                     <Field onSelect={()=>{
                                 values.lostFutureEarningsProg++;
                                 if(values.lostFutureEarningsProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'lostFutureEarnings' placeholder = '' />
                     {touched.lostFutureEarnings && errors.lostFutureEarnings && <p className='error-message'>*{errors.lostFutureEarnings}</p>}
                 </label>
-                <label>
+                <label className='numberEntry'>
                     <div>Past Medical Expenses: <FontAwesomeIcon className='more-info1' icon={faInfoCircle} /><div className='tooltip-1 tooltip'>The total amount you've spent on medical bills, you can give us your best estimate.</div></div>
                     <Field  onSelect={()=>{
                                 values.medExpProg++;
@@ -42,14 +42,14 @@ const App = ({
                     {touched.medExp && errors.medExp && <p className='error-message'>*{errors.medExp}</p>}
 
                 </label>
-                <label>
+                <label className='numberEntry'>
                     <div>Future Medical Expenses: <FontAwesomeIcon className='more-info5' icon={faInfoCircle} /><div className='tooltip-5 tooltip'>How much do you think this injury will cost you in future medical expenses?</div></div>
                     <Field onSelect={()=>{
                                 values.futureMedExpProg++;
                                 if(values.futureMedExpProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'futureMedExp' placeholder = '' />
                     {touched.futureMedExp && errors.futureMedExp && <p className='error-message'>*{errors.futureMedExp}</p>}
                 </label>
-                <label>
+                <label className='numberEntry'>
                     <div>Past Months of Treatment: <FontAwesomeIcon className='more-info6' icon={faInfoCircle} />
                         <div className='tooltip-6 tooltip'>
 
@@ -63,7 +63,7 @@ const App = ({
                                 if(values.painAndSufferingProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'painAndSuffering' placeholder = '' />
                     {touched.painAndSuffering && errors.painAndSuffering && <p className='error-message'>*{errors.painAndSuffering}</p>}
                 </label>
-                <label>
+                <label className='numberEntry'>
                     <div>Future Months of Treatment: <FontAwesomeIcon className='more-info7' icon={faInfoCircle} />
                         <div className='tooltip-7 tooltip'>
 
@@ -95,22 +95,26 @@ const App = ({
                                 if(values.emailProg === 1){values.progress++;}}} autoComplete='new-password' className='email-field' type = 'email' name = 'email' placeholder = 'Email' />
                         {touched.email && errors.email && <p className='error-message'>*{errors.email}</p>}
                     </label>
-                    <label>
-                        <Field onSelect={()=>{
-                                values.acknowledgedProg++;
-                                if(values.acknowledgedProg === 1){values.progress++;}}} className='acknowledgementBox' type = 'checkbox' name = 'acknowledged' checked = {values.acknowledged} />
-                        I understand that this number is only an estimate and not a guarantee of any sort.
+                    <label className='checkBoxLabel'>
+                        <Field className='acknowledgementBox' type = 'checkbox' name = 'acknowledged' defaultChecked = {values.acknowledged!==true?null:values.acknowledgedProg++ && values.acknowledgedProg===2?values.progress++:null} />
+                        I understand that this number is only an estimate and I am okay with being contacted with more information and advice.
                         {touched.acknowledged && errors.acknowledged && <p className='error-message'>*{errors.acknowledged}</p>}
 
                     </label>
-                    <button className='centered-column'>Get Results</button>
+                    <label className='checkBoxLabel'>
+                        <Field  className='acknowledgementBox' type = 'checkbox' name = 'emailAllow' defaultChecked = {values.emailAllow!==true?null:values.emailAllowProg++ && values.emailAllowProg===2?values.progress++:null} />
+                        I am okay with receiving a follow up emails with tips and other important info.
+                        {touched.emailAllow && errors.emailAllow && <p className='error-message'>*{errors.emailAllow}</p>}
+
+                    </label>          
+                    <button type = 'submit' className='centered-column'>Get Results</button>
                 </div>
             </Form>
         </div>
 
         <div className='results-window hide'>
             <div className='results-wrap'>
-                <h3 className='results-words'>You could be entitled to a settlement of <span>${values.total = (values.medExp+values.propDmg+values.lostWages+values.lostFutureEarnings+values.futureMedExp)*values.painAndSuffering}!</span></h3>
+                <h3 className='results-words'>You could be entitled to a settlement of <span>${values.total = ((values.painAndSuffering+values.futurePainAndSuffering)*1500)+(values.medExp+values.propDmg+values.lostWages+values.lostFutureEarnings+values.futureMedExp)}!</span></h3>
                 <a href='javascript:void(0)' onClick={()=>{var popUp = document.querySelector('.results-window');
                                 popUp.classList.toggle('hide');
                                 popUp.classList.toggle('show');}}>
@@ -129,6 +133,8 @@ const App = ({
                 <li className={values.progress >= 6 ? 'filled-in' : "''"}></li>
                 <li className={values.progress >= 7 ? 'filled-in' : "''"}></li>
                 <li className={values.progress >= 8 ? 'filled-in' : "''"}></li>
+                <li className={values.progress >= 9 ? 'filled-in' : "''"}></li>
+                
             </ul>
         </div>
     </div>
@@ -136,9 +142,9 @@ const App = ({
 )
 
 const FormikApp = withFormik({
-    mapPropsToValues( {medExp, propDmg, lostWages, lostFutureEarnings, futureMedExp, painAndSuffering ,email, name, acknowledged,
+    mapPropsToValues( {medExp, propDmg, lostWages, lostFutureEarnings, futureMedExp, painAndSuffering ,email, name, acknowledged, emailAllow,
                         medExpProg, propDmgProg, lostWagesProg, lostFutureEarningsProg, futureMedExpProg, painAndSufferingProg,
-                        futurePainAndSuffering,futurePainAndSufferingProg,nameProg, emailProg, acknowledgedProg} ) {
+                        futurePainAndSuffering,futurePainAndSufferingProg,nameProg, emailProg, acknowledgedProg, emailAllowProg} ) {
 
         return {
             subject: "Claims Calculator Results",
@@ -163,7 +169,9 @@ const FormikApp = withFormik({
             emailProg: emailProg || 0,
             total: 0,
             acknowledged: acknowledged || false,
-            acknowledgedProg: acknowledgedProg || 0
+            acknowledgedProg: acknowledgedProg || 0,
+            emailAllow: emailAllow || false,
+            emailAllowProg: emailAllowProg || 0
         }
     },
     validationSchema: Yup.object().shape({
@@ -175,8 +183,8 @@ const FormikApp = withFormik({
         futureMedExp: Yup.number().integer().min(0,'Future medical expense must be at least 0').required('Future medical expenses are required.'),
         painAndSuffering: Yup.number().integer('Please enter a whole number').min(0, 'Months of treatment must be at least 0').required('Months of treatment is required.'),
         futurePainAndSuffering: Yup.number().integer('Please enter a whole number').min(0, 'Months of treatment must be at least 0').required('Months of treatment is required.'),
-        acknowledged: Yup.boolean().oneOf([true],'Must Accept Acknowledgement')
-
+        acknowledged: Yup.boolean().oneOf([true], 'Must Accept Acknowledgement'),
+        emailAllow: Yup.boolean().oneOf([true], 'You must allow a follow up email to view your estimate.')
     }),
     handleSubmit(values) {
 
@@ -187,11 +195,11 @@ const FormikApp = withFormik({
         popUp.classList.toggle('show');
         //axios here
         console.log(JSON.stringify(values))
-        axios({
-            method: 'post',
-            url: 'https://m1onjfbto8.execute-api.us-east-1.amazonaws.com/mailer/mailer',
-            data: JSON.stringify(values)
-          });
+        // axios({
+        //     method: 'post',
+        //     url: 'https://m1onjfbto8.execute-api.us-east-1.amazonaws.com/mailer/mailer',
+        //     data: JSON.stringify(values)
+        //   });
     }
 })( App )
 

@@ -92,7 +92,7 @@ nav{
 
 Form{
   margin-top: -3rem;
-  padding-bottom: 3rem;
+  padding-bottom: 5rem;
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -106,7 +106,7 @@ Form{
 }
 
 Form >* {
-  margin: 1em;
+  margin: 1em 0em;
 }
 .error-message{
   color: red;
@@ -117,34 +117,33 @@ Form >* {
   background-image: url(/assets/svgs/usd-square.svg);
   background-repeat: no-repeat;
   background-position: 2px 0px;
-  text-indent: 1rem;
   color: var(--primary);
 }
 .name-field{
   background-image: url(/assets/svgs/user.svg);
   background-repeat: no-repeat;
   background-position: 1px 0px;
-  text-indent: 1rem;
 }
 .email-field{
   background-image: url(/assets/svgs/envelope.svg);
   background-repeat: no-repeat;
   background-position: 1px 0px;
-  text-indent: 1rem;
 }
 Form > h1 {
   max-width: 60%;
 }
 label{
-  max-width: 80%;
+  width: 90%;
 }
 input{
   border: 1px solid black;
   padding: .25rem 2rem;
   border-radius: 2px;
   background: var(--background-secondary);
-  width: 70%;
+  width: 75%;
   min-width: 4rem;
+  text-indent: 3rem;
+  font-size: 1.5rem;
 }
 /* Tooltips start */
 
@@ -366,29 +365,30 @@ input{
     width: 85%;
     margin-top: -1rem;
     justify-content: flex-start;
-    align-items: flex-start; 
+    align-items: center; 
+  }
+  Form >* {
+    margin: 1em;
   }
   .numberEntry{
     display: flex;
     flex-direction: column;
-    margin-left: 8rem;
+    align-items: center;
+    width: 65%;
   }
   Form > label{
     display: flex;
     flex-direction: column;
+
   }
-  .dollar-field {
-    text-indent: 2rem;
-  }
-  .name-field{
-    text-indent: 2rem;
-  }
-  .email-field{
-    text-indent: 2rem;
+  label{
+    width: fit-content;
   }
   input{
     padding: .35rem;
     min-width: 15rem;
+    text-indent: 5rem;
+    font-size: 2rem;
   }
   .tooltip{
     font-size: 1.5rem;
@@ -397,6 +397,12 @@ input{
     grid-column: span 2;
     height: fit-content;
     width: 90%;
+  }
+  .get-results-wrapper > label{
+    margin: 1rem 0rem;
+  }
+  .get-results-wrapper > label > input {
+    width: 100%;
   }
   .checkBoxLabel{
     max-width: 20rem;
@@ -407,7 +413,7 @@ input{
   }
 }
 
-@media only screen and (min-width: 1024px){
+@media only screen and (min-width: 1350px){
   .wrapper{
     height: fit-content;
   }
@@ -419,23 +425,26 @@ input{
     font-size: 1.75rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 1fr 1fr 1fr 7.5fr;
-  }
-  label{
-    max-width: 100%;
+    grid-template-rows: 1fr 1fr 1fr 5.5fr;
   }
   .dollar-field{
-    max-width: 30%;
+    width: 50%;
+  }
+  label{
+    width: fit-content;
+  }
+  input{
+    width: 100%;
   }
   Form > label{
-    width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
   }
   .numberEntry{
-    margin-left: 0rem;
+    width: 100%;
+
   }
   .get-results-wrapper{
     margin: 0px;

@@ -8,6 +8,7 @@ import axios from 'axios'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/pro-solid-svg-icons'
 
+
 const App = ({
     values,
     errors,
@@ -18,7 +19,7 @@ const App = ({
             <h1>Auto Injury Claims Calculator</h1>
         </nav>
         <div className = 'form-wrapper'>
-            <Form>
+            <Form >
                 
                 <label className='numberEntry'>
                     <div>Past Lost Wages: <FontAwesomeIcon className='more-info3' icon={faInfoCircle} /><div className='tooltip-3 tooltip'>How much money have you lost from missed work due to the accident?</div></div>
@@ -28,7 +29,7 @@ const App = ({
                     {touched.lostWages && errors.lostWages && <p className='error-message'>*{errors.lostWages}</p>}
                 </label>
                 <label className='numberEntry'>
-                    <div>Future Lost Earnings: <FontAwesomeIcon className='more-info4' icon={faInfoCircle} /><div className='tooltip-4 tooltip'>Estimate of how much money you will miss out on from future work due to your injury.</div></div>
+                    <div>Future Lost Wages: <FontAwesomeIcon className='more-info4' icon={faInfoCircle} /><div className='tooltip-4 tooltip'>Estimate of how much money you will miss out on from future work due to your injury.</div></div>
                     <Field onSelect={()=>{
                                 values.lostFutureEarningsProg++;
                                 if(values.lostFutureEarningsProg === 1){values.progress++;}}} className='dollar-field' type = 'number' name = 'lostFutureEarnings' placeholder = '' />
@@ -97,15 +98,17 @@ const App = ({
                     </label>
                     <label className='checkBoxLabel'>
                         <Field className='acknowledgementBox' type = 'checkbox' name = 'acknowledged' defaultChecked = {values.acknowledged!==true?null:values.acknowledgedProg++ && values.acknowledgedProg===2?values.progress++:null} />
-                        I understand that this number is only an estimate and I am okay with being contacted with more information and advice.
-                        {touched.acknowledged && errors.acknowledged && <p className='error-message'>*{errors.acknowledged}</p>}
-
+                        <div>
+                            <p>I understand that this number is only an estimate and I am okay with being contacted with more information and advice.</p>
+                            {touched.acknowledged && errors.acknowledged && <p className='error-message'>*{errors.acknowledged}</p>}
+                        </div>
                     </label>
                     <label className='checkBoxLabel'>
                         <Field  className='acknowledgementBox' type = 'checkbox' name = 'emailAllow' defaultChecked = {values.emailAllow!==true?null:values.emailAllowProg++ && values.emailAllowProg===2?values.progress++:null} />
-                        I am okay with receiving a follow up emails with tips and other important info.
-                        {touched.emailAllow && errors.emailAllow && <p className='error-message'>*{errors.emailAllow}</p>}
-
+                        <div>
+                            <p>I am okay with receiving a follow up emails with tips and other important info.</p>
+                            {touched.emailAllow && errors.emailAllow && <p className='error-message'>*{errors.emailAllow}</p>}
+                        </div>
                     </label>          
                     <button type = 'submit' className='centered-column'>Get Results</button>
                 </div>
@@ -114,11 +117,21 @@ const App = ({
 
         <div className='results-window hide'>
             <div className='results-wrap'>
-                <h3 className='results-words'>You could be entitled to a settlement of <span>${values.total = ((values.painAndSuffering+values.futurePainAndSuffering)*1500)+(values.medExp+values.propDmg+values.lostWages+values.lostFutureEarnings+values.futureMedExp)}!</span></h3>
+                <h3 className='results-words'>You could be entitled to a settlement of <span>${values.total = (((parseFloat(values.futurePainAndSuffering)+parseFloat(values.painAndSuffering))*1500)+(parseFloat(values.medExp)+parseFloat(values.futureMedExp)+parseFloat(values.lostWages)+parseFloat(values.lostFutureEarnings)))}!</span></h3>
+                <div>
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+
                 <a href='javascript:void(0)' onClick={()=>{var popUp = document.querySelector('.results-window');
                                 popUp.classList.toggle('hide');
                                 popUp.classList.toggle('show');}}>
                     <h3 className='close-button'>- CLOSE -</h3>
+                    
                 </a>
             </div>
         </div>        
@@ -134,7 +147,7 @@ const App = ({
                 <li className={values.progress >= 7 ? 'filled-in' : "''"}></li>
                 <li className={values.progress >= 8 ? 'filled-in' : "''"}></li>
                 <li className={values.progress >= 9 ? 'filled-in' : "''"}></li>
-                
+                <li className={values.progress >= 10 ? 'filled-in' : "''"}></li>
             </ul>
         </div>
     </div>
@@ -142,27 +155,29 @@ const App = ({
 )
 
 const FormikApp = withFormik({
-    mapPropsToValues( {medExp, propDmg, lostWages, lostFutureEarnings, futureMedExp, painAndSuffering ,email, name, acknowledged, emailAllow,
-                        medExpProg, propDmgProg, lostWagesProg, lostFutureEarningsProg, futureMedExpProg, painAndSufferingProg,
-                        futurePainAndSuffering,futurePainAndSufferingProg,nameProg, emailProg, acknowledgedProg, emailAllowProg} ) {
-
+    mapPropsToValues( {medExp, futureMedExp, lostWages, lostFutureEarnings, painAndSuffering, futurePainAndSuffering, email, name, acknowledged, emailAllow,
+                        medExpProg, lostWagesProg, lostFutureEarningsProg, futureMedExpProg, painAndSufferingProg,
+                        futurePainAndSufferingProg,nameProg, emailProg, acknowledgedProg, emailAllowProg} ) {
+    
         return {
+
+            medExp: medExp || '',
+            lostWages: lostWages || '',
+            lostFutureEarnings: lostFutureEarnings || '',
+            medExpProg: medExpProg || '',
+            futureMedExp: futureMedExp || '',
+            painAndSuffering: painAndSuffering || '',
+            futurePainAndSuffering: futurePainAndSuffering || '',
+
             subject: "Claims Calculator Results",
             progress: 0,
-            medExp: medExp || 0,
-            medExpProg: medExpProg || 0,
-            propDmg: propDmg || 0,
-            propDmgProg: propDmgProg || 0,
-            lostWages: lostWages || 0,
+            
             lostWagesProg: lostWagesProg || 0,
-            lostFutureEarnings: lostFutureEarnings || 0,
             lostFutureEarningsProg: lostFutureEarningsProg || 0,
-            futureMedExp: futureMedExp || 0,
             futureMedExpProg: futureMedExpProg || 0,
-            painAndSuffering: painAndSuffering || 0,
             painAndSufferingProg: painAndSufferingProg || 0,
-            futurePainAndSuffering: futurePainAndSuffering || 0,
             futurePainAndSufferingProg: futurePainAndSufferingProg || 0,
+
             name: name || '',
             nameProg: nameProg || 0,
             email: email || '',

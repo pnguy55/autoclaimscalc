@@ -33,9 +33,9 @@ body {
   --body-italic: neuton-italic;
 }
 
-@font-face {font-family: mont; src: url(' /assets/fonts/Montserrat/Montserrat-Regular.ttf');}
-@font-face {font-family: mont-bold; src: url('/assets/fonts/Montserrat/Montserrat-Bold.ttf');}
-@font-face{font-family: mont-italic; src: url('/assets/fonts/Montserrat/Montserrat-Light.ttf');}
+@font-face {font-family: mont; src: url(' /assets/fonts/montserrat/Montserrat-Regular.ttf');}
+@font-face {font-family: mont-bold; src: url('/assets/fonts/montserrat/Montserrat-Bold.ttf');}
+@font-face{font-family: mont-italic; src: url('/assets/fonts/montserrat/Montserrat-Light.ttf');}
 @font-face {font-family: neuton; src: url('/assets/fonts/neuton/Neuton-Regular.ttf');}
 @font-face {font-family: neuton-bold; src: url('/assets/fonts/neuton/Neuton-Bold.ttf');}
 @font-face{font-family: neuton-italic; src: url('/assets/fonts/neuton/Neuton-Italic.ttf');}
@@ -69,7 +69,7 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 140%;
+  height: fit-content;
 }
 nav{
   width: 90%;
@@ -92,6 +92,7 @@ nav{
 
 Form{
   margin-top: -3rem;
+  padding-bottom: 3rem;
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -120,13 +121,13 @@ Form >* {
   color: var(--primary);
 }
 .name-field{
-  background-image: url(/assets/svgs/user-circle.svg);
+  background-image: url(/assets/svgs/user.svg);
   background-repeat: no-repeat;
   background-position: 1px 0px;
   text-indent: 1rem;
 }
 .email-field{
-  background-image: url(/assets/svgs/at.svg);
+  background-image: url(/assets/svgs/envelope.svg);
   background-repeat: no-repeat;
   background-position: 1px 0px;
   text-indent: 1rem;
@@ -237,9 +238,18 @@ input{
   min-width: 1em !important;
 }
 .checkBoxLabel{
+  display: flex;
+  align-items: center;
   font-family: var(--body);
   border-top: 2px solid var(--primary-dark);
   margin: .5rem;
+}
+.checkBoxLabel > .acknowledgementBox{
+  margin-right: 1rem;
+}
+.checkBoxLabel > div {
+  display: flex;
+  flex-direction: column;
 }
 .get-results-wrapper{
   margin-top: 2rem;
@@ -308,12 +318,16 @@ input{
 }
 .results-wrap{
   display: flex;
-  width: 80%;
+  width: 95%;
+  height: fit-content;
   background: var(--background-color);
   color: var(--primary-dark);
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.results-wrap > a{
+  text-decoration: none;
 }
 .results-words{
   display: flex;
@@ -341,7 +355,7 @@ input{
     font-size: 1.5rem;
   }
   .wrapper{
-    height: 185%;
+    height: fit-content;
   }
   .form-wrapper{
     padding-bottom: 2rem;
@@ -381,30 +395,54 @@ input{
   }
   .get-results-wrapper{
     grid-column: span 2;
-    height: 45rem;
+    height: fit-content;
     width: 90%;
   }
   .checkBoxLabel{
     max-width: 20rem;
   }
+
+  .results-wrap{
+    width: 75%;
+  }
 }
 
 @media only screen and (min-width: 1024px){
   .wrapper{
-    height: 140%;
+    height: fit-content;
   }
   nav{
     font-size: 2rem;
   }
   Form{
-    width: 90%;
+    width: 55%;
     font-size: 1.75rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 10rem 10rem 10rem 47rem;
+    grid-template-rows: 1fr 1fr 1fr 7.5fr;
+  }
+  label{
+    max-width: 100%;
+  }
+  .dollar-field{
+    max-width: 30%;
+  }
+  Form > label{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .numberEntry{
-    margin-left: 2rem;
+    margin-left: 0rem;
+  }
+  .get-results-wrapper{
+    margin: 0px;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    width: 100%;
+    height: fit-content;
   }
   .results-wrap{
     width: 40%;
